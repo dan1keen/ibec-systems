@@ -16,6 +16,7 @@ class CreateCorralsTable extends Migration
         Schema::create('corrals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->bigInteger('amount');
             $table->timestamps();
         });
     }
