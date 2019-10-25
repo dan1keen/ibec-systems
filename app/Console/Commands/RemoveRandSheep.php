@@ -42,13 +42,13 @@ class RemoveRandSheep extends Command
      */
     public function handle()
     {
-        $counter = 5;
+        $counter = 2; // При условии что Команда будет запускаться кроном каждые 5 минут
         do {
             $last = Date::whereRaw("description LIKE '%deleted%'")->orderBy("id", "desc")->first();
             $date = isset($last->date) ? $last->date : Date::all()->last()->date;
             $addDay = Carbon::parse($date)->addDays(10);
             RemoveRandSheepJob::dispatch($addDay);
             sleep(100);
-        }while($counter-- > 0);
+        }while($counter-- > 0); // Иначе можно заменить $counter-- на while(true) тем самым цикл будет работать каждые 100 секунд
     }
 }

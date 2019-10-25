@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-
+			// Алтернативный вариант это сделать цикл while(true) в классах команд и запустить вручную 3 команды. Это в случе если крон не будет работать как надо
             $schedule->command('create:sheep')->everyMinute()->runInBackground();
             $schedule->command('check:sheep')->everyMinute()->runInBackground();
             $schedule->command('remove:sheep')->everyFiveMinutes()->runInBackground();

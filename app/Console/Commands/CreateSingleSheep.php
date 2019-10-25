@@ -44,7 +44,7 @@ class CreateSingleSheep extends Command
     public function handle()
     {
 
-        $counter = 5;
+        $counter = 5; // При условии что Команда будет запускаться кроном каждую минуту
 
         do {
             $last = Date::whereRaw("description LIKE '%created%'")->orderBy("id", "desc")->first();
@@ -52,6 +52,6 @@ class CreateSingleSheep extends Command
             $addDay = Carbon::parse($date)->addDays();
             CreateSingleSheepJob::dispatch($counter, $addDay);
             sleep(10);
-        }while($counter-- > 0);
+        }while($counter-- > 0); // Иначе можно заменить $counter-- на while(true) тем самым цикл будет работать каждые 10 секунд
     }
 }
