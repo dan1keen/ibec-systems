@@ -3,13 +3,14 @@
 namespace App\Jobs;
 
 use App\Services\SheepService;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class AddSheepJob implements ShouldQueue
+class CreateSingleSheepJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,11 +19,11 @@ class AddSheepJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($counter)
     {
-
+        $this->counter = $counter;
     }
-
+    protected $counter;
     /**
      * Execute the job.
      *
@@ -30,7 +31,9 @@ class AddSheepJob implements ShouldQueue
      */
     public function handle()
     {
+        $date = Carbon::now();
+        echo "EXECUTING: " . $this->counter . "\n";
         $sheep_service = new SheepService;
-        $sheep_service->generateRandSheeps();
+        $sheep_service->createSheep($date);
     }
 }

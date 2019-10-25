@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class AddSheepJob implements ShouldQueue
+class RemoveRandSheepJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,7 +20,7 @@ class AddSheepJob implements ShouldQueue
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
@@ -31,6 +31,6 @@ class AddSheepJob implements ShouldQueue
     public function handle()
     {
         $sheep_service = new SheepService;
-        $sheep_service->generateRandSheeps();
+        $sheep_service->removeSheep();
     }
 }

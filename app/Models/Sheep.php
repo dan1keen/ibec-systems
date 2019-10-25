@@ -9,9 +9,9 @@ class Sheep extends Model
 {
     use LogsActivity;
     protected $fillable = [
-        'name', 'corral_id'
+        'name', 'corral_id', 'date'
     ];
-    protected static $logAttributes = ['name', 'corral_id'];
+    protected static $logAttributes = ['name', 'corral_id', 'date'];
 
     public function corral(){
         return $this->belongsTo(Corral::class);

@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+            $schedule->command('create:sheep')->everyMinute()->runInBackground();
+            $schedule->command('check:sheep')->everyMinute()->runInBackground();
+            $schedule->command('remove:sheep')->everyFiveMinutes()->runInBackground();
     }
 
     /**
