@@ -16,7 +16,7 @@ class CreateSheepsTable extends Migration
         Schema::create('sheep', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-
+            $table->string('date');
             $table->bigInteger('corral_id')->unsigned();
             $table->timestamps();
             $table->foreign('corral_id')
