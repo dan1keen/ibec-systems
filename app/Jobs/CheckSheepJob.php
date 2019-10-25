@@ -18,10 +18,11 @@ class CheckSheepJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($addDay)
     {
-
+        $this->addDay = $addDay;
     }
+    protected $addDay;
 
     /**
      * Execute the job.
@@ -31,6 +32,6 @@ class CheckSheepJob implements ShouldQueue
     public function handle()
     {
         $sheep_service = new SheepService;
-        $sheep_service->checkSheep();
+        $sheep_service->checkSheep($this->addDay);
     }
 }

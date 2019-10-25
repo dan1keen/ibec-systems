@@ -18,11 +18,11 @@ class RemoveRandSheepJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($addDay)
     {
-        //
+        $this->addDay = $addDay;
     }
-
+    protected $addDay;
     /**
      * Execute the job.
      *
@@ -31,6 +31,6 @@ class RemoveRandSheepJob implements ShouldQueue
     public function handle()
     {
         $sheep_service = new SheepService;
-        $sheep_service->removeSheep();
+        $sheep_service->removeSheep($this->addDay);
     }
 }

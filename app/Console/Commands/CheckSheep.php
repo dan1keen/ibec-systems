@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Date;
 use App\Jobs\CheckSheepJob;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Spatie\Activitylog\Models\Activity;
 
 class CheckSheep extends Command
 {
@@ -40,7 +43,10 @@ class CheckSheep extends Command
     {
         $counter = 5;
         do {
-            CheckSheepJob::dispatch();
+            $last = Date::whereRaw("description LIKE '%updated%'")->orderBy("id", "desc")->first();
+            $date = isset($last->date) ? $last->date : Date::all()->first()->date;
+            $addDay = Carbon::parse($date)->addDays();
+            CheckSheepJob::dispatch($addDay);
             sleep(10);
         }while($counter-- > 0);
 

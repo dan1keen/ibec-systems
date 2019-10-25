@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Spatie\Activitylog\Models\Activity;
 
 class CreateSingleSheepJob implements ShouldQueue
 {
@@ -19,11 +20,14 @@ class CreateSingleSheepJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($counter)
+    public function __construct($counter,$addDay)
     {
         $this->counter = $counter;
+        $this->addDay = $addDay;
+
     }
     protected $counter;
+    protected $addDay;
     /**
      * Execute the job.
      *
@@ -31,9 +35,8 @@ class CreateSingleSheepJob implements ShouldQueue
      */
     public function handle()
     {
-        $date = Carbon::now();
         echo "EXECUTING: " . $this->counter . "\n";
         $sheep_service = new SheepService;
-        $sheep_service->createSheep($date);
+        $sheep_service->createSheep($this->addDay);
     }
 }

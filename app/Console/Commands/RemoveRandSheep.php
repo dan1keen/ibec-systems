@@ -2,9 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Date;
 use App\Jobs\RemoveRandSheepJob;
 use App\Services\SheepService;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Spatie\Activitylog\Models\Activity;
 
 class RemoveRandSheep extends Command
 {
@@ -41,7 +44,10 @@ class RemoveRandSheep extends Command
     {
         $counter = 5;
         do {
-            RemoveRandSheepJob::dispatch();
+            $last = Date::whereRaw("description LIKE '%deleted%'")->orderBy("id", "desc")->first();
+            $date = isset($last->date) ? $last->date : Date::all()->last()->date;
+            $addDay = Carbon::parse($date)->addDays(10);
+            RemoveRandSheepJob::dispatch($addDay);
             sleep(100);
         }while($counter-- > 0);
     }

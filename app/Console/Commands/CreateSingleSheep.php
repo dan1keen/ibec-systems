@@ -2,10 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Date;
 use App\Jobs\CreateSingleSheepJob;
+use App\Models\Sheep;
 use App\Services\SheepService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Spatie\Activitylog\Models\Activity;
 
 class CreateSingleSheep extends Command
 {
@@ -42,8 +45,12 @@ class CreateSingleSheep extends Command
     {
 
         $counter = 5;
+
         do {
-            CreateSingleSheepJob::dispatch($counter);
+            $last = Date::whereRaw("description LIKE '%created%'")->orderBy("id", "desc")->first();
+            $date = $last->date;
+            $addDay = Carbon::parse($date)->addDays();
+            CreateSingleSheepJob::dispatch($counter, $addDay);
             sleep(10);
         }while($counter-- > 0);
     }
