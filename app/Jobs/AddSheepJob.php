@@ -31,6 +31,7 @@ class AddSheepJob implements ShouldQueue
     public function handle()
     {
         $sheep_service = new SheepService;
+        $sheep_service->createCorrals();
         $sheep_service->generateRandSheeps();
     }
 }

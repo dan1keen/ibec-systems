@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('corrals/create', 'SheepController@createCorrals');
+Route::get('sheeps', 'SheepController@index');
+Route::get('corrals', 'SheepController@indexForCorrals');
+Route::post('sheeps/create', 'SheepController@createSheeps');
+Route::get('reports', 'ReportController@index');
+Route::get('report/{key}', 'ReportController@show');
