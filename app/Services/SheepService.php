@@ -97,7 +97,7 @@ class SheepService
                 "date" => $date->format("Y-m-d"),
                 "description" => [
                     "name" => $sheep->name,
-                    "corral_id" => $sheep->corral_id,
+                    "corral" => $sheep->corral->name,
                     "status" => "deleted"
                 ]
             ]

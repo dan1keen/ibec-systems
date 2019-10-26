@@ -15,6 +15,9 @@ class ReportController extends Controller
 
     public function show($key){
         $reports = Date::where('date',$key)->orderBy('id', 'desc')->get();
-        return $reports;
+        $created = Date::where('date',$key)->whereRaw("description LIKE '%created%'")->count();
+        $updated = Date::where('date',$key)->whereRaw("description LIKE '%updated%'")->count();
+        $deleted = Date::where('date',$key)->whereRaw("description LIKE '%deleted%'")->count();
+        return [$reports, $created, $updated, $deleted];
     }
 }

@@ -1906,6 +1906,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1989,6 +1994,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -20403,7 +20410,15 @@ var render = function() {
                     staticClass: "card-header",
                     staticStyle: { "text-align": "center" }
                   },
-                  [_c("strong", [_vm._v(_vm._s(corral.name))])]
+                  [
+                    _c("strong", [_vm._v(_vm._s(corral.name) + " ")]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _vm._v("Кол-во: " + _vm._s(corral.sheeps.length))
+                    ])
+                  ]
                 ),
                 _vm._v(" "),
                 _vm._l(corral.sheeps, function(sheeps) {
@@ -20427,10 +20442,16 @@ var render = function() {
             )
           }),
           0
-        )
+        ),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3)
       ])
     : !_vm.corrals.length
-    ? _c("div", [_vm._m(1)])
+    ? _c("div", [_vm._m(4)])
     : _vm._e()
 }
 var staticRenderFns = [
@@ -20444,6 +20465,35 @@ var staticRenderFns = [
           _vm._v("Список Загонов")
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticStyle: { "text-align": "center" } }, [
+      _vm._v("Команда для создания овечки в рандомном загоне: "),
+      _c("strong", [_vm._v("php artisan create:sheep")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticStyle: { "text-align": "center" } }, [
+      _vm._v(
+        "Команда для перемещения овечки из рандомного загона в загон где 1 овечка: "
+      ),
+      _c("strong", [_vm._v("php artisan check:sheep")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticStyle: { "text-align": "center" } }, [
+      _vm._v("Команда для удаления овечки из рандомного загона: "),
+      _c("strong", [_vm._v("php artisan remove:sheep")])
     ])
   },
   function() {
@@ -20564,12 +20614,23 @@ var render = function() {
         _c("div", { staticClass: "card-header" }, [_vm._v("Действия")]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
+          _c("strong", [
+            _vm._v(
+              "Created: " +
+                _vm._s(_vm.date[1]) +
+                ", Updated: " +
+                _vm._s(_vm.date[2]) +
+                ", Deleted " +
+                _vm._s(_vm.date[3])
+            )
+          ]),
+          _vm._v(" "),
           _c("table", { staticClass: "table table-hover mt-2" }, [
             _vm._m(0),
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.date, function(report) {
+              _vm._l(_vm.date[0], function(report) {
                 return _c("tr", { key: report.id }, [
                   _c("td", [_vm._v(_vm._s(report.id))]),
                   _vm._v(" "),
@@ -20586,6 +20647,15 @@ var render = function() {
                             _vm._s(report.description.old) +
                             " to " +
                             _vm._s(report.description.new)
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  report.description.status == "deleted"
+                    ? _c("td", [
+                        _vm._v(
+                          "Sheep was deleted from " +
+                            _vm._s(report.description.corral)
                         )
                       ])
                     : _vm._e()
